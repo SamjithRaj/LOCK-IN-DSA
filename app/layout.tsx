@@ -3,8 +3,8 @@ import './globals.css';
 import { StoreProvider } from '@/lib/store';
 
 export const metadata: Metadata = {
-  title: 'FAANG Tracker — Samjith',
-  description: 'Personal FAANG interview preparation tracker',
+  title: 'LOCK-IN DSA — Learn, Practice, Track',
+  description: 'A self-contained DSA learning, practice, doubt-solving, and roadmap tracking app',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

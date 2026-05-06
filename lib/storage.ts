@@ -52,7 +52,6 @@ export function saveState(state: AppState): void {
 }
 
 export function computeStreak(state: AppState): number {
-  const today = new Date().toDateString();
   const days = getAllDays().filter(d => !d.isRest);
   let streak = 0;
   const sorted = days.sort((a, b) => b.dayNum - a.dayNum);

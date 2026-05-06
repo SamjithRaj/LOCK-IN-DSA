@@ -2,7 +2,6 @@
 import { useState, useMemo } from 'react';
 import { useStore } from '@/lib/store';
 import { getAllDays } from '@/lib/data';
-import type { Problem } from '@/lib/data';
 
 type Filter = 'all' | 'todo' | 'done' | 'E' | 'M' | 'H';
 
