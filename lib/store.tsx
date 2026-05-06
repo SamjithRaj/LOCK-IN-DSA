@@ -1,5 +1,5 @@
 'use client';
-import React, { createContext, useContext, useEffect, useReducer, useCallback } from 'react';
+import React, { createContext, useContext, useEffect, useReducer } from 'react';
 import { AppState, DayProgress, loadState, saveState, computeStreak } from '@/lib/storage';
 import { getAllDays } from '@/lib/data';
 

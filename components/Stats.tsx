@@ -3,6 +3,15 @@ import { useMemo } from 'react';
 import { useStore } from '@/lib/store';
 import { getAllDays, PHASES } from '@/lib/data';
 
+
+function Bar({ pct, color = 'var(--accent)', height = 8 }: { pct: number; color?: string; height?: number }) {
+  return (
+    <div style={{ height, background: 'var(--bg4)', borderRadius: height / 2, overflow: 'hidden', flex: 1 }}>
+      <div style={{ height: '100%', width: `${Math.min(pct, 1) * 100}%`, background: color, borderRadius: height / 2, transition: 'width 0.6s ease' }} />
+    </div>
+  );
+}
+
 export default function Stats() {
   const { state } = useStore();
   const allDays = getAllDays();
@@ -59,13 +68,6 @@ export default function Stats() {
   const level = Math.floor(state.totalXP / 500) + 1;
   const xpToNext = 500 - (state.totalXP % 500);
 
-  function Bar({ pct, color = 'var(--accent)', height = 8 }: { pct: number; color?: string; height?: number }) {
-    return (
-      <div style={{ height, background: 'var(--bg4)', borderRadius: height / 2, overflow: 'hidden', flex: 1 }}>
-        <div style={{ height: '100%', width: `${Math.min(pct, 1) * 100}%`, background: color, borderRadius: height / 2, transition: 'width 0.6s ease' }} />
-      </div>
-    );
-  }
 
   const maxWeekSolved = Math.max(...stats.weekStats.map(w => w.solved), 1);
 

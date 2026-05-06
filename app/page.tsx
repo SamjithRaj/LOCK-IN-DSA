@@ -8,9 +8,12 @@ import Patterns from '@/components/Patterns';
 import MockTimer from '@/components/MockTimer';
 import Notes from '@/components/Notes';
 import Stats from '@/components/Stats';
+import Learn from '@/components/Learn';
+import PracticeArena from '@/components/PracticeArena';
+import Mentor from '@/components/Mentor';
 import { useStore } from '@/lib/store';
 
-type View = 'dashboard' | 'schedule' | 'problems' | 'patterns' | 'timer' | 'notes' | 'stats';
+type View = 'dashboard' | 'learn' | 'arena' | 'mentor' | 'schedule' | 'problems' | 'patterns' | 'timer' | 'notes' | 'stats';
 
 function SetupModal({ onDone }: { onDone: (date: string) => void }) {
   const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
@@ -20,7 +23,7 @@ function SetupModal({ onDone }: { onDone: (date: string) => void }) {
         <div style={{ fontSize: 48, marginBottom: 16 }}>🎯</div>
         <h1 style={{ fontSize: 28, marginBottom: 8 }}>Welcome, Samjith.</h1>
         <p style={{ color: 'var(--text2)', fontSize: 14, marginBottom: 28, lineHeight: 1.7 }}>
-          Your 6-month FAANG tracker is ready. All progress saves locally and will never reset.<br /><br />
+          Your FAANG learning app is ready: lessons, practice, mentor answers, and progress tracking all save locally.<br /><br />
           When did you start (or plan to start) Phase 1?
         </p>
         <input type="date" value={date} onChange={e => setDate(e.target.value)}
@@ -28,7 +31,7 @@ function SetupModal({ onDone }: { onDone: (date: string) => void }) {
         <br />
         <button onClick={() => onDone(date)}
           style={{ padding: '14px 40px', background: 'var(--accent)', border: 'none', borderRadius: 10, color: 'white', fontSize: 14, fontWeight: 700, fontFamily: 'var(--font-mono)', letterSpacing: '0.06em', textTransform: 'uppercase', cursor: 'pointer' }}>
-          Let's Go →
+          Let&apos;s Go →
         </button>
         <p style={{ fontSize: 11, color: 'var(--text3)', marginTop: 16 }}>FAANG → MBA → Investment Banking. One day at a time.</p>
       </div>
@@ -41,7 +44,10 @@ export default function App() {
   const { state, dispatch } = useStore();
   const [mounted, setMounted] = useState(false);
 
-  useEffect(() => { setMounted(true); }, []);
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => setMounted(true));
+    return () => cancelAnimationFrame(frame);
+  }, []);
 
   if (!mounted) {
     return (
@@ -57,6 +63,9 @@ export default function App() {
 
   const VIEWS: Record<View, React.ReactNode> = {
     dashboard: <Dashboard setView={v => setView(v as View)} />,
+    learn: <Learn />,
+    arena: <PracticeArena />,
+    mentor: <Mentor />,
     schedule: <Schedule />,
     problems: <Problems />,
     patterns: <Patterns />,

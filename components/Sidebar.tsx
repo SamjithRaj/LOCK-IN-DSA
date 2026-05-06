@@ -1,15 +1,17 @@
 'use client';
-import { useState } from 'react';
 import { useStore } from '@/lib/store';
 import { getAllDays } from '@/lib/data';
-import { getCompletedCount, getTotalProblemsCompleted } from '@/lib/storage';
+import { getCompletedCount } from '@/lib/storage';
 
-type View = 'dashboard' | 'schedule' | 'problems' | 'patterns' | 'timer' | 'notes' | 'stats';
+type View = 'dashboard' | 'learn' | 'arena' | 'mentor' | 'schedule' | 'problems' | 'patterns' | 'timer' | 'notes' | 'stats';
 
 interface Props { view: View; setView: (v: View) => void; }
 
 const NAV = [
   { id: 'dashboard', label: 'Dashboard', icon: '◈' },
+  { id: 'learn', label: 'Learn', icon: '▣' },
+  { id: 'arena', label: 'Practice Arena', icon: '▶' },
+  { id: 'mentor', label: 'Doubt Solver', icon: '?' },
   { id: 'schedule', label: 'Schedule', icon: '▦' },
   { id: 'problems', label: 'Problems', icon: '⟨⟩' },
   { id: 'patterns', label: 'Patterns', icon: '◎' },
@@ -51,10 +53,10 @@ export default function Sidebar({ view, setView }: Props) {
       <div style={{ padding: '20px 16px 16px', borderBottom: '1px solid var(--border)' }}>
         <div style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 18, color: 'var(--text)' }}>
           <span style={{ color: 'var(--accent)' }}>{'{'}</span>
-          FAANG
+          LOCK-IN
           <span style={{ color: 'var(--accent)' }}>{'}'}</span>
         </div>
-        <div style={{ fontSize: 10, color: 'var(--text3)', marginTop: 2, letterSpacing: '0.1em', textTransform: 'uppercase' }}>Samjith · 6mo Plan</div>
+        <div style={{ fontSize: 10, color: 'var(--text3)', marginTop: 2, letterSpacing: '0.1em', textTransform: 'uppercase' }}>CodeChef-style DSA App</div>
       </div>
 
       {/* Streak */}

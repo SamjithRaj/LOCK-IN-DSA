@@ -25,15 +25,16 @@ export default function MockTimer() {
   const [approach, setApproach] = useState('');
   const [debrief, setDebrief] = useState({ clarity: 0, approach: 0, code: 0, comms: 0 });
   const [showDebrief, setShowDebrief] = useState(false);
-  const [sessions, setSessions] = useState<{ problem: string; duration: number; scores: typeof debrief; date: string }[]>([]);
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-
-  useEffect(() => {
+  const [sessions, setSessions] = useState<{ problem: string; duration: number; scores: typeof debrief; date: string }[]>(() => {
+    if (typeof window === 'undefined') return [];
     try {
       const saved = localStorage.getItem('mock_sessions');
-      if (saved) setSessions(JSON.parse(saved));
-    } catch {}
-  }, []);
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
     if (running) {
@@ -74,17 +75,14 @@ export default function MockTimer() {
   // Determine current phase
   let cumPct = 0;
   let currentPhase = PHASES_MOCK[0];
-  let phaseElapsed = 0;
   for (const ph of PHASES_MOCK) {
-    const phaseDur = totalSecs * ph.pct;
-    if (elapsed < (cumPct + ph.pct) * totalSecs) { currentPhase = ph; phaseElapsed = elapsed - cumPct * totalSecs; break; }
+    if (elapsed < (cumPct + ph.pct) * totalSecs) { currentPhase = ph; break; }
     cumPct += ph.pct;
   }
 
   const circumference = 2 * Math.PI * 100;
   const dashOffset = circumference * (1 - pct);
 
-  const avgScore = Object.values(debrief).reduce((a, b) => a + b, 0) / 4;
 
   return (
     <div style={{ padding: 32, maxWidth: 900, margin: '0 auto' }} className="animate-fadeIn">

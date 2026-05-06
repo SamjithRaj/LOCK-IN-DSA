@@ -97,7 +97,7 @@ export default function Notes() {
                 <h2 style={{ fontSize: 18 }}>Global Scratch Pad</h2>
                 <span style={{ fontSize: 11, color: 'var(--green)' }}>✓ Auto-saved</span>
               </div>
-              <p style={{ fontSize: 13, color: 'var(--text2)', marginBottom: 16 }}>Free-form notes — patterns you're noticing, questions to ask your coach, anything.</p>
+              <p style={{ fontSize: 13, color: 'var(--text2)', marginBottom: 16 }}>Free-form notes — patterns you&apos;re noticing, questions to ask your coach, anything.</p>
               <textarea
                 defaultValue={globalNote}
                 onChange={e => handleGlobal(e.target.value)}
